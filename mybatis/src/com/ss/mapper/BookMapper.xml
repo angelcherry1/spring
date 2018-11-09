@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.mapper.BookMapper">
+	<!-- <selectKey keyColumn="primary_id" keyProperty="id" order="AFTER" resultType="java.lang.Long" 
+		> select max(primary_id) from t_book </selectKey> -->
+	<resultMap type="Book" id="bookResult">
+		<result property="bookId" column="book_id" />
+		<result property="bookName" column="book_name" />
+		<result property="bookAuthor" column="book_author" />
+		<result property="bookPrice" column="book_price" />
+		<result property="bookKind" column="book_kind" />
+		<result property="totalStore" column="total_store" />
+		<result property="totalSold" column="total_sold" />
+		<result property="bookPic" column="book_pic" />
+		<result property="bookProfile" column="book_profile" />
+		<result property="bookStatus" column="book_status" />
+		<association property="bookInfo" column="book_id" select="com.ss.mapper.BookInfoMapper.selectBookInfo" />
+	</resultMap>
+
+	<select id="selectBook" resultMap="bookResult">
+		select
+		<include refid="bookProperty" />
+		from t_book where primary_id=#{bookId}
+	</select>
+
+	<insert id="createBook" useGeneratedKeys="true" keyProperty="id">
+		insert into t_book(
+		<include refid="bookProperty" />
+		) value(
+		<include refid="bookValues" />
+		)
+	</insert>
+
+	<delete id="deleteBook">
+		delete from t_book where primary_id=#{bookId}
+	</delete>
+	<sql id="bookProperty">book_id,book_name,book_author,book_price,book_kind,total_store,total_sold,book_pic,book_profile,book_status
+	</sql>
+	<sql id="bookValues">#{bookId},#{bookName},#{bookAuthor},#{bookPrice},#{bookKind},#{totalStore},#{totalSold},#{bookPic},#{bookProfile},#{bookStatus}
+	</sql>
+</mapper>

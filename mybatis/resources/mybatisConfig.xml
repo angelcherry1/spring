@@ -1,0 +1,20 @@
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<package name="com.ss.pojo" />
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="com.ss.dataSources.C3P0DataSource" />
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/ss/mapper/BookMapper.xml" />
+		<mapper resource="com/ss/mapper/BookInfoMapper.xml" />
+		<mapper resource="com/ss/mapper/PublishMapper.xml" />
+		<mapper resource="com/ss/mapper/PrintInfoMapper.xml" />
+		<mapper resource="com/ss/mapper/PrinterMapper.xml" />
+	</mappers>
+</configuration>

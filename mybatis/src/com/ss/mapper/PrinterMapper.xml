@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.mapper.PrinterMapper">
+	<resultMap id="printerResult" type="Printer">
+		<id property="printerId" column="printer_id" />
+		<result property="printerName" column="printer_name" />
+		<result property="printerAddress" column="printer_address" />
+		<result property="PrinterPhone" column="printer_phone" />
+		<result property="printerZip" column="printer_zip" />
+		<result property="printerLegalPerson" column="printer_legal_person" />
+		<result property="contactPerson" column="contact_person" />
+		<result property="contactCellphone" column="contact_cellphone" />
+		<result property="faxNum" column="fax_num" />
+	</resultMap>
+
+	<select id="selectPrinter" resultMap="printerResult">
+		select
+		<include refid="printerProperty" />
+		from t_printer where printer_id = #{printerId}
+	</select>
+	
+	<sql id="printerProperty">printer_id,printer_name,printer_address,printer_phone,printer_zip,printer_legal_person,contact_person,contact_cellphone,fax_num
+	</sql>
+	<sql id="printerValues">#{printerId},#{printerName},#{printerAddress},#{PrinterPhone},#{printerZip},#{printerLegalPerson},#{contactPerson},#{contactCellphone},#{faxNum}
+	</sql>
+</mapper>

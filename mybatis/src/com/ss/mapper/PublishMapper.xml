@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.mapper.PublishMapper">
+	<resultMap id="publishResult" type="Publish">
+		<id property="publishId" column="publish_id" />
+		<result property="publishName" column="publish_name" />
+		<result property="publishDate" column="publish_date" />
+		<result property="publishNum" column="publish_num" />
+	</resultMap>
+
+	<select id="selectPublish" resultMap="publishResult">
+		select
+		<include refid="publishProperty" />
+		from t_publish where publish_id = #{publishId}
+	</select>
+	<sql id="publishProperty">publish_id,publish_name,publish_date,publish_num
+	</sql>
+	<sql id="publishValues">#{publishId},#{publishName},#{publishDate},#{publishNum}
+	</sql>
+</mapper>

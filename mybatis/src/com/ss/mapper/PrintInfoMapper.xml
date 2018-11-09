@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.mapper.PrintInfoMapper">
+	<resultMap id="printInfoResult" type="PrintInfo">
+		<id property="printId" column="print_id" />
+		<result property="bookInfoId" column="book_info_id" />
+		<result property="printerId" column="printer_id" />
+		<result property="printSize" column="print_size" />
+		<result property="printDate" column="print_date" />
+		<result property="printBatch" column="print_batch" />
+		<result property="printNum" column="print_num" />
+		<association property="printer" column="printer_id" select="com.ss.mapper.PrinterMapper.selectPrinter"/>
+	</resultMap>
+
+	<select id="selectPrintInfo" resultMap="printInfoResult">
+		select
+		<include refid="printInfoProperty" />
+		from t_print_info where book_info_id = #{bookInfoId}
+	</select>
+	<sql id="printInfoProperty">print_id,book_info_id,printer_id,print_size,print_date,print_num,print_batch
+	</sql>
+	<sql id="printInfoValues">#{printId},#{bookInfoId},#{printerId},#{printSize},#{printNum},#{printDate},#{printBatch}
+	</sql>
+</mapper>

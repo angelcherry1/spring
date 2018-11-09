@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.mapper.BookInfoMapper">
+	<resultMap id="bookInfoResult" type="BookInfo">
+		<id property="bookInfoId" column="book_info_id" />
+		<result property="bookId" column="book_id" />
+		<result property="detail" column="detail" />
+		<result property="picStyle" column="pic_style" />
+		<association property="printInfo" column="book_info_id" select="com.ss.mapper.PrintInfoMapper.selectPrintInfo"/>
+		<association property="publish" column="publish_id" select="com.ss.mapper.PublishMapper.selectPublish" />
+	</resultMap>
+
+	<select id="selectBookInfo" resultMap="bookInfoResult">
+		select
+		<include refid="bookInfoProperty" />
+		from t_book_info where book_id = #{bookId}
+	</select>
+	<sql id="bookInfoProperty">book_info_id,book_id,detail,pic_style,publish_id
+	</sql>
+	<sql id="bookInfoValues">#{bookInfoId},#{bookId},#{detail},#{picStyle}
+	</sql>
+</mapper>
